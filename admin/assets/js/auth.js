@@ -20,36 +20,79 @@ $(document).ready(function () {
     const reEmailEl = $('#remail');
     const rePassEl = $('#rpassword');
     const reConPassEl = $('#rcpassword');
-    
-    $('#register-form').on('input', function(e) {
+
+    $('#register-form').on('input', function (e) {
         switch (e.target.id) {
-            case 'rname' : 
+            case 'rname':
                 checkUsername();
                 break;
-            case 'remail' : 
-                checkEmail();
+            case 'remail':
+                checkEmail(reEmailEl);
                 break;
-            case 'rpassword' : 
-                checkPassword();
+            case 'rpassword':
+                checkPassword(rePassEl);
                 break;
-            case 'rcpassword' : 
+            case 'rcpassword':
                 checkConfirmPassword();
                 break;
         }
     })
     /* End Register validate client  */
+
     // Register Ajax Request
     $('#register-btn').click(function (e) {
-        // e.preventDefault;
-       
+        e.preventDefault();
+        if (checkUsername() && checkEmail(reEmailEl) && checkPassword(rePassEl) && checkConfirmPassword()) {
+            $('#register-btn').val('Please wait...');
+            $.ajax({
+                url: '../includes/action.php',
+                method: 'post',
+                data: $('#register-form').serialize() + '&action=register',
+                success: function (res) {
+                    $('#register-btn').val('Sign Up');
+                    if (res === 'register') {
+                        window.location = 'home.php';
+                    } else {
+                        $('.resAlert').html(res);
+                    }
+                }
+            })
+        }
+    })
+
+    /* Begin Login validate client  */
+    const lEmailEl = $('#email');
+    const lPassEl = $('#password');
+
+    $('#login-form').on('input', function (e) {
+        switch (e.target.id) {
+            case 'email':
+                checkEmail(lEmailEl);
+                break;
+            case 'password':
+                checkPassword(lPassEl);
+                break;
+        }
+    })
+    /* End Login validate client  */
+    // Login Ajax Request
+    $('#login-btn').click(function (e) {
+        e.preventDefault();
+        if (checkEmail(lEmailEl) && checkPassword(lPassEl)) {
+            $('#login-btn').val('Please wait...');
+            $.ajax({
+                url: '../includes/action.php',
+                method: 'post',
+                data: $('#login-form').serialize() + '&action=login',
+                success: function (res) {
+                    $('#login-btn').val('Sign Up');
+                    
+                }
+            })
+        }
     })
 
 
-
-
-
-   
-   
     // username: not empty, 3=<length<=25
     function checkUsername() {
         let valid = false;
@@ -67,29 +110,29 @@ $(document).ready(function () {
     }
 
     // email: not empty, correct email format
-    function checkEmail() {
+    function checkEmail(emailEl) {
         let valid = false;
-        const reEmailVl = reEmailEl.val().trim('');
-        if (!isRequired(reEmailVl)) {
-            showError(reEmailEl, 'Email cannot be blank.');
-        } else if (!isEmailValid(reEmailVl)) {
-            showError(reEmailEl, 'Email is not valid.');
+        const emailVl = emailEl.val().trim('');
+        if (!isRequired(emailVl)) {
+            showError(emailEl, 'Email cannot be blank.');
+        } else if (!isEmailValid(emailVl)) {
+            showError(emailEl, 'Email is not valid.');
         } else {
-            showSuccess(reEmailEl);
+            showSuccess(emailEl);
             valid = true;
         }
         return valid;
     }
     // password: not empty, secure password
-    function checkPassword() {
+    function checkPassword(passEl) {
         let valid = false;
-        const rePassVl = rePassEl.val().trim('');
-        if (!isRequired(rePassVl)) {
-            showError(rePassEl, 'Password cannot be blank.');
-        } else if (!isPasswordSecure(rePassVl)) {
-            showError(rePassEl, 'Password must has at least 8 characters that include at least 1 lowercase character, 1 uppercase characters, 1 number, and 1 special character in (!@#$%^&*).');
+        const passVl = passEl.val().trim('');
+        if (!isRequired(passVl)) {
+            showError(passEl, 'Password cannot be blank.');
+        } else if (!isPasswordSecure(passVl)) {
+            showError(passEl, 'Password must has at least 8 characters that include at least 1 lowercase character, 1 uppercase characters, 1 number, and 1 special character in (!@#$%^&*).');
         } else {
-            showSuccess(rePassEl);
+            showSuccess(passEl);
             valid = true;
         }
         return valid;

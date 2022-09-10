@@ -91,8 +91,9 @@
                             Create Account
                         </h1>
                         <hr class="my-3">
+            
                         <form action="#" method="post" id="register-form" class="px-3">
-
+                            <div class="resAlert"></div>
                             <div class="input-group input-group-lg form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text rounded-0">
