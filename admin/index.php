@@ -27,14 +27,14 @@
                         </h1>
                         <hr class="my-3">
                         <form action="#" method="post" id="login-form" class="px-3">
-
+                            <div class="logAlert"></div>
                             <div class="input-group input-group-lg form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text rounded-0">
                                         <i class="far fa-envelope fa-lg"></i>
                                     </span>
                                 </div>
-                                <input type="email" name="email" id="email" class="form-control rounded-0" placeholder="E-mail" required>
+                                <input type="email" name="email" id="email" class="form-control rounded-0" placeholder="E-mail" required value="<?php echo (isset($_COOKIE['email'])) ? $_COOKIE['email'] : ''; ?>">
                             </div>
                             <p style="color: #dc3545; margin-bottom: 16px;"></p>
 
@@ -44,13 +44,13 @@
                                         <i class="fas fa-key fa-lg"></i>
                                     </span>
                                 </div>
-                                <input type="password" name="password" id="password" class="form-control rounded-0" placeholder="Password" required>
+                                <input type="password" name="password" id="password" class="form-control rounded-0" placeholder="Password" required value="<?php echo (isset($_COOKIE['password'])) ? $_COOKIE['password'] : ''; ?>">
                             </div>
                             <p style="color: #dc3545; margin-bottom: 16px;"></p>
 
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox float-left">
-                                    <input type="checkbox" name="rem" class="custom-control-input" id="customCheck">
+                                    <input type="checkbox" name="rem" class="custom-control-input" id="customCheck" <?php echo (isset($_COOKIE['email']) && isset($_COOKIE['password'])) ? 'checked' : ''; ?>>
                                     <label for="customCheck" class="custom-control-label">Remember me</label>
                                 </div>
                                 <div class="forgot float-right">
@@ -186,6 +186,7 @@
     </div>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="./assets/js/auth.js"></script>
 </body>
 

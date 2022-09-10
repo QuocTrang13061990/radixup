@@ -83,10 +83,18 @@ $(document).ready(function () {
             $.ajax({
                 url: '../includes/action.php',
                 method: 'post',
+                // serialize(): lấy val của input trong form cho vào 1 arr
+                // Nếu: input là checkbox thì chỉ khi checkbox được checked thì mới tồn tại phần tử này trong arr
+                // + '$action=login': thêm vào arr 1 phần tử là action => 'login'
+                // 
                 data: $('#login-form').serialize() + '&action=login',
                 success: function (res) {
-                    $('#login-btn').val('Sign Up');
-                    
+                    $('#login-btn').val('Sign In');
+                    if (res == 'login') {
+                        window.location = 'home.php';
+                    } else {
+                        $('.logAlert').html(res);
+                    }
                 }
             })
         }

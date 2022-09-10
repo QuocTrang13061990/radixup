@@ -6,11 +6,11 @@ class Auth extends Database {
 
     // check exists email in DB
     function existUser($email){
-        $sql = 'SELECT email FROM users WHERE email = :email';
+        $sql = 'SELECT email, password FROM users WHERE email = :email';
         $stmt = $this->conn->prepare($sql);
         $stmt->execute(['email' => $email]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
+        // Nếu tìm thấy trả về Arr, còn không trả về false
         return $result;
     }
     // new user register
@@ -23,6 +23,7 @@ class Auth extends Database {
         ];
         return $this->insert('users', $dataInsert);
     }
+
 }
 
 ?>
