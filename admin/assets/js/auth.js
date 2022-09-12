@@ -51,7 +51,8 @@ $(document).ready(function () {
                 success: function (res) {
                     $('#register-btn').val('Sign Up');
                     if (res === 'register') {
-                        window.location = 'home.php';
+                        var mess = '<div class="alert alert-success alert-dismissible fade show"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Sign Up Success. You can login now!</strong></div>';
+                        $('.resAlert').html(mess);
                     } else {
                         $('.resAlert').html(res);
                     }
@@ -98,6 +99,25 @@ $(document).ready(function () {
                 }
             })
         }
+    })
+
+    // Forgot Ajax Request
+    $('#forgot-btn').click(function (e) {
+        e.preventDefault();
+        $('#forgot-btn').val('Please wait...');
+        $.ajax({
+            url: '../includes/action.php',
+            method: 'post',
+            data: $('#forgot-form').serialize() + '&action=forgot',
+            success: function (res) {
+                $('#forgot-btn').val('Reset Password');
+                if (res == 'forgot') {
+
+                } else {
+                    $('.forgotAlert').html(res);
+                }
+            }
+        })
     })
 
 
@@ -189,5 +209,6 @@ $(document).ready(function () {
         const pattern = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
         return pattern.test(password);
     }
+
 })
 

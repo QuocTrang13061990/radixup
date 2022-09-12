@@ -1,3 +1,14 @@
+<?php 
+session_start();
+require_once '../config.php';
+
+if (isset($_SESSION['user'])) {
+    header('Location: ' . _WEB_HOST_ROOT_ADMIN . '/home.php');
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +22,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./assets/css/style.css?ver=<?php rand(); ?>">
-    <title>Radix</title>
+    <title>Radixup</title>
 </head>
 
 <body>
@@ -162,7 +173,7 @@
                             To reset your password, enter the registered e-mail address and we will send you the rest instructions om your e-mail!
                         </p>
                         <form action="#" method="post" id="forgot-form" class="px-3">
-
+                            <div class="forgotAlert"></div>
                             <div class="input-group input-group-lg form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text rounded-0">

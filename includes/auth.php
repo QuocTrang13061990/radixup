@@ -23,7 +23,15 @@ class Auth extends Database {
         ];
         return $this->insert('users', $dataInsert);
     }
-
+    // Get infor user login current
+    function userInfoLogin($email) {
+        $sql = 'SELECT * FROM users WHERE email = :email';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['email' => $email]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        // Nếu tìm thấy trả về Arr, còn không trả về false
+        return $result;
+    }
 }
 
 ?>

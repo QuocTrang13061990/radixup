@@ -18,11 +18,16 @@ class Database {
 
     public function query($sql, $data = []) {
         $queryStatus = FALSE;
-        $stmt = $this->conn->prepare($sql);
-        if (empty($data)) {
-            $queryStatus = $stmt->execute();
-        } else {
-            $queryStatus = $stmt->execute($data);
+        try{
+            $stmt = $this->conn->prepare($sql);
+            if(empty($data)){
+                $queryStatus = $stmt->execute();
+            }else {
+                $queryStatus = $stmt->execute($data);
+            }    
+        } catch(PDOException $e){
+            require_once _WEB_PATH_ROOT . '/errors/database.php';
+            die(); 
         }
 
         return $queryStatus;

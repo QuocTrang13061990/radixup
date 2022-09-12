@@ -43,11 +43,15 @@ if (isset($_POST['action']) && $_POST['action'] == 'login') {
                 setcookie('password', '', time() - 60, '/');
             }
             echo 'login';
-            $_SESSION['login'] = $email;
+            $_SESSION['user'] = $email;
         } else {
             echo $dac->showMessage('warning', 'Incorrect password!');
         }
     } else {
         echo $dac->showMessage('warning', 'E-mail does not exist in the system!');
     }
+}
+// Handle Forgot Ajax Request
+if (isset($_POST['action']) && $_POST['action'] == 'forgot') {
+    print_r($_POST['action']);
 }
