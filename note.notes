@@ -1,0 +1,15 @@
+# structure folder
+
+# folder/file
+    1. framework/core/#framework.class.php
+        a. 
+
+# Note
+    1. public static function là gì? 
+    2. private static function là gì?
+    3. spl_autoload_register(array(__CLASS__, 'load')) là gì?
+# constant, function
+    1. DIRECTORY_SEPARATOR => '\'
+    2. getcwd() => lấy path project. (EX: C:\xampp\htdocs\radixup\)
+    3. classB::methodB: Tại A gọi method trong B. (File A require file B (B chứa classB và methodB)).
+    4. self::method: Gọi method của trong nội bộ class
